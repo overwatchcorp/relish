@@ -1,23 +1,16 @@
 {
   "name": "relish",
-  "version": "1.0.0",
-  "description": "magazine but on the internet",
-  "main": "index.js",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-scripts": "1.0.12"
+  },
   "scripts": {
-    "test": "jest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://overwatchcorp@github.com/overwatchcorp/relish.git"
-  },
-  "keywords": [
-    "magazine",
-    "internet"
-  ],
-  "author": "Jasper Fung <contact@jasperfung.co>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/overwatchcorp/relish/issues"
-  },
-  "homepage": "https://github.com/overwatchcorp/relish#readme"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
 }
