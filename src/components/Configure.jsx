@@ -19,10 +19,18 @@ Action: {
 }
 */
 
+const validateConfig = (values) => {
+  const errors = {};
+  if (values.publicationName.length < 1) {
+    errors.publicationName = 'Required';
+  }
+  return errors;
+};
+
 let ConfigForm = (props) => {
-  const { handleSubmit, error } = props;
+  const { handleSubmit, success, handleChange } = props;
   const button = {};
-  switch (props.success) {
+  switch (success) {
     case (false):
       button.class = 'btn btn-danger';
       button.text = 'Retry';
@@ -39,7 +47,14 @@ let ConfigForm = (props) => {
     <form onSubmit={handleSubmit}>
       <div className="form-group">
         <label htmlFor="publicationName">Publication Name</label>
-        <Field name="publicationName" component="input" type="text" className="form-control" onChange={props.handleChange}/>
+        <Field
+          required
+          name="publicationName"
+          component="input"
+          type="text"
+          className="form-control"
+          onChange={handleChange}
+        />
       </div>
       <button
         className={button.class}
@@ -50,11 +65,12 @@ let ConfigForm = (props) => {
 };
 ConfigForm = reduxForm({
   form: 'config',
+  validateConfig,
 })(ConfigForm);
 
 const ConfigurePage = ({ config, setConfig, dispatch }) => (
   <div className="container mt-2">
-    <h4>Configuration</h4>
+    <h3>Configuration</h3>
     <div className="card">
       <div className="card-body">
         {
