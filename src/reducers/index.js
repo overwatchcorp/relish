@@ -7,6 +7,15 @@ const config = (state = {
   setSuccess: null,
   configItems: {},
 }, action) => {
+  // For first time. No data will be returned, so we need to fill in some initial values
+  let configItems = {};
+  if (action.type === 'FETCH_CONFIG_SUCCESS') {
+    configItems = action.configItems;
+    if (configItems === null) {
+      configItems = {};
+      configItems.publicationName = '';
+    }
+  }
   switch (action.type) {
     // when config is requested, set isFetching to true to indicate loading
     case ('FETCH_CONFIG'):
@@ -16,7 +25,7 @@ const config = (state = {
     case ('FETCH_CONFIG_SUCCESS'):
       return Object.assign({}, state, {
         isFetching: false,
-        configItems: action.configItems,
+        configItems,
       });
 
     case ('SET_CONFIG'):
