@@ -1,10 +1,21 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 
-const publicationName = (state = '', action) => {
+const config = (state = {
+  isFetching: true,
+  configItems: {},
+}, action) => {
   switch (action.type) {
-    case ('EDIT_PUBLICATION_NAME'):
-      return (action.publicationName);
+    // when config is requested, set isFetching to true to indicate loading
+    case ('FETCH_CONFIG'):
+      return Object.assign({}, state, {
+        isFetching: true,
+      });
+    case ('FETCH_CONFIG_SUCCESS'):
+      return Object.assign({}, state, {
+        isFetching: false,
+        configItems: action.configItems,
+      });
     default:
       return state;
   }
@@ -20,7 +31,7 @@ const user = (state = { loggedIn: false }, action) => {
 };
 
 const reducers = combineReducers({
-  publicationName,
+  config,
   user,
   form: formReducer,
 });
