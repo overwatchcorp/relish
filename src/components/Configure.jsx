@@ -63,6 +63,15 @@ let ConfigForm = (props) => {
     </form>
   );
 };
+ConfigForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  success: PropTypes.bool,
+  handleChange: PropTypes.func,
+};
+ConfigForm.defaultProps = {
+  success: null,
+  handleChange: () => {},
+};
 ConfigForm = reduxForm({
   form: 'config',
   validateConfig,
@@ -96,6 +105,11 @@ const ConfigurePage = ({ config, setConfig, dispatch }) => (
     </div>
   </div>
 );
+ConfigurePage.propTypes = {
+  config: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  setConfig: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
+};
 // map config data and setConfig action to presentational ConfigurePage component
 const mapStateToProps = state => ({
   config: state.config,
