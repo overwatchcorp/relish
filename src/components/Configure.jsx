@@ -20,17 +20,31 @@ Action: {
 */
 
 let ConfigForm = (props) => {
-  const { handleSubmit } = props;
+  const { handleSubmit, error } = props;
+  const button = {};
+  switch (props.success) {
+    case (false):
+      button.class = 'btn btn-danger';
+      button.text = 'Retry';
+      break;
+    case (true):
+      button.class = 'btn btn-success';
+      button.text = 'Saved!';
+      break;
+    default:
+      button.class = 'btn btn-primary';
+      button.text = 'Save';
+  }
   return (
     <form onSubmit={handleSubmit}>
       <div className="form-group">
         <label htmlFor="publicationName">Publication Name</label>
-        <Field name="publicationName" component="input" type="text" className="form-control" />
+        <Field name="publicationName" component="input" type="text" className="form-control" onChange={props.handleChange}/>
       </div>
       <button
-        className="btn btn-primary"
+        className={button.class}
         type="submit"
-      >Save</button>
+      >{button.text}</button>
     </form>
   );
 };
@@ -38,12 +52,16 @@ ConfigForm = reduxForm({
   form: 'config',
 })(ConfigForm);
 
-const ConfigurePage = ({ config }, dispatch) => (
+const ConfigurePage = ({ config, setConfig, dispatch }) => (
   <div className="container mt-2">
     <h4>Configuration</h4>
     <div className="card">
-      {/* {JSON.stringify(config.configItems)} */}
       <div className="card-body">
+        {
+          config.error
+            ? <div className="alert alert-danger">{JSON.stringify(config.error)}</div>
+            : null
+        }
         {
           config.isFetching
             ? <div>Loading</div>
@@ -52,7 +70,9 @@ const ConfigurePage = ({ config }, dispatch) => (
                 initialValues={{
                   publicationName: config.configItems.publicationName,
                 }}
-                onSubmit={values => console.log(values)}
+                onSubmit={values => setConfig(values)}
+                handleChange={() => dispatch({ type: 'SET_CONFIG_RESETSUCCESS' })}
+                success={config.setSuccess}
               />
             </div>
         }
@@ -78,20 +98,13 @@ class ConfigLifecycle extends Component {
     this.context.store.dispatch(actions.fetchConfig());
   }
   render() {
-    return (<Configure />);
+    // uhh passing in dispatch as a function because i couldnt get connect to do it
+    // TODO: fix connect and make it pass in dispatch
+    return (<Configure dispatch={this.context.store.dispatch} />);
   }
 }
 ConfigLifecycle.contextTypes = {
   store: PropTypes.object,
 };
-
-// ? <div>Loading configuration...</div>
-// : <div>
-//   {JSON.stringify(state.config)}
-// <ConfigForm
-//   initialValues={state.configItems}
-//   onSubmit={values => console.log(values)}
-// />
-// </div>
 
 export default ConfigLifecycle;

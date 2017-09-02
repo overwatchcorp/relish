@@ -21,6 +21,16 @@ const fetchConfig = () =>
     });
   });
 
+const setConfig = newConfigValues =>
+  new Promise((resolve, reject) => {
+    database.ref('/config').set(newConfigValues)
+      .catch(reject)
+      .then(() => {
+        resolve();
+      });
+  });
+
 export default {
   fetchConfig,
+  setConfig,
 };
