@@ -9,13 +9,18 @@ const publicConfig = (state = {
     case ('GET_PUBLICCONFIG_SUCCESS'):
       return Object.assign({}, state, {
         isFetching: false,
-        ...action.publicConfig,
+        ...action,
       });
     case ('GET_PUBLICCONFIG_FAILURE'):
       return Object.assign({}, state, {
         isFetching: false,
         err: action.err,
       });
+    // // check to make sure we are changing at least one setting
+    // assert.deepEqual(typeof publicConfig, 'object');
+    // // check to make sure the setting(s) we are changing exist
+    // const configItems = Object.keys(publicConfig.publicConfig);
+    // configItems.forEach(item => assert.deepEqual(permittedPublicConfigItems[item], true));
     case ('SET_PUBLICCONFIG'):
       return Object.assign({}, state, {
         isSending: true,

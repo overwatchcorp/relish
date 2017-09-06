@@ -1,4 +1,7 @@
 import publicConfig from './publicConfig';
+import allActions from '../actions';
+
+const actions = allActions.publicConfig;
 
 it('should initialize state', () => {
   // we will use combineReducers so the state will initially be undefined
@@ -11,9 +14,7 @@ it('should initialize state', () => {
 });
 
 it('should set isFetching to true on GET_PUBLICCONFIG', () => {
-  const state = publicConfig(undefined, {
-    type: 'GET_PUBLICCONFIG',
-  });
+  const state = publicConfig(undefined, actions.get());
   expect(state).toEqual(expect.objectContaining({
     isFetching: true,
   }));
@@ -21,13 +22,9 @@ it('should set isFetching to true on GET_PUBLICCONFIG', () => {
 
 it('should set isFetching to false and set publicConfig in state on GET_PUBLICCONFIG_SUCCESS', () => {
   const testPublicatonName = 'Relish Magazine';
-  const state = publicConfig(undefined, {
-    type: 'GET_PUBLICCONFIG_SUCCESS',
-    // we use object spread notation to spread the contents into the parent
-    publicConfig: {
-      publicationName: testPublicatonName,
-    },
-  });
+  const state = publicConfig(undefined, actions.getSuccess({
+    publicationName: testPublicatonName,
+  }));
   expect(state).toEqual(expect.objectContaining({
     isFetching: false,
     publicationName: testPublicatonName,

@@ -11,14 +11,10 @@ it('get() should create action with type GET_PUBLICCONFIG', () => {
 it('getSuccess() should create action type GET_PUBLICCONFIG_SUCCESS', () => {
   const expectedAction = {
     type: actionTypes.GET_PUBLICCONFIG_SUCCESS,
-    publicConfig: {
-      publicationName: 'Relish',
-    },
+    publicationName: 'Relish',
   };
   expect(publicConfigActions.getSuccess({
-    publicConfig: {
-      publicationName: 'Relish',
-    },
+    publicationName: 'Relish',
   })).toEqual(expectedAction);
 });
 
