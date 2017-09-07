@@ -1,8 +1,7 @@
-import assert from 'assert';
+import fetch from 'isomorphic-fetch';
 import actionTypes from '../constants/actionTypes';
-import permittedPublicConfigItems from '../constants/permittedPublicConfigItems';
 
-const get = () => ({
+const getRequest = () => ({
   type: actionTypes.GET_PUBLICCONFIG,
 });
 
@@ -16,6 +15,16 @@ const getFailure = err => ({
   err,
 });
 
+const get = () =>
+  (dispatch) => {
+    dispatch(getRequest());
+    return fetch('https://relish-test.firebaseio.com/publicConfig')
+      .catch(err => dispatch(getFailure(err)))
+      // .then(res => res.json())
+      .then(res => res.json())
+      .then(res => dispatch(getSuccess(res.body)));
+  };
+
 const set = () => ({
   type: actionTypes.SET_PUBLICCONFIG,
 });
@@ -28,9 +37,10 @@ const setFailure = err => ({
 });
 
 export default {
-  get,
+  getRequest,
   getSuccess,
   getFailure,
+  get,
   set,
   setSuccess,
   setFailure,

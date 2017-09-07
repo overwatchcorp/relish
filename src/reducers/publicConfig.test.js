@@ -14,7 +14,7 @@ it('should initialize state', () => {
 });
 
 it('should set isFetching to true on GET_PUBLICCONFIG', () => {
-  const state = publicConfig(undefined, actions.get());
+  const state = publicConfig(undefined, actions.getRequest());
   expect(state).toEqual(expect.objectContaining({
     isFetching: true,
   }));
