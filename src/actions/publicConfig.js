@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-fetch';
+import api from '../api';
 import actionTypes from '../constants/actionTypes';
 
 const getRequest = () => ({
@@ -18,9 +18,8 @@ const getFailure = err => ({
 const get = () =>
   (dispatch) => {
     dispatch(getRequest());
-    return fetch('https://relish-test.firebaseio.com/publicConfig')
+    return api.getPublicConfig()
       .catch(err => dispatch(getFailure(err)))
-      // .then(res => res.json())
       .then(res => res.json())
       .then(res => dispatch(getSuccess(res.body)));
   };
