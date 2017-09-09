@@ -1,6 +1,8 @@
 const publicConfig = (state = {
   publicationName: '',
 }, action) => {
+  const actionContents = { ...action };
+  delete actionContents.type;
   switch (action.type) {
     case ('GET_PUBLICCONFIG'):
       return Object.assign({}, state, {
@@ -9,7 +11,7 @@ const publicConfig = (state = {
     case ('GET_PUBLICCONFIG_SUCCESS'):
       return Object.assign({}, state, {
         isFetching: false,
-        ...action,
+        ...actionContents,
       });
     case ('GET_PUBLICCONFIG_FAILURE'):
       return Object.assign({}, state, {

@@ -21,7 +21,7 @@ const get = () =>
     return api.getPublicConfig()
       .catch(err => dispatch(getFailure(err)))
       .then(res => res.json())
-      .then(res => dispatch(getSuccess(res.body)));
+      .then(res => dispatch(getSuccess(res)));
   };
 
 const set = () => ({
