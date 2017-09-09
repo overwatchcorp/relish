@@ -3,5 +3,6 @@ module.exports = {
     "globals": {
       "it": true,
       "expect": true,
+      "document": true
     }
 };
