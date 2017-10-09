@@ -63,8 +63,8 @@ it('create GET_PUBLICCONFIG_SUCCESS after successfully getting public config dat
   };
 
   nock('https://relish-test.firebaseio.com/')
-    .get('/publicConfig')
-    .reply(200, publicConfigBody);
+    .get('/publicConfig.json')
+    .reply(200, publicConfigBody.body);
 
   const expectedActions = [
     publicConfigActions.getRequest(),
