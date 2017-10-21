@@ -1,6 +1,6 @@
 import api from '../api';
 
-const createNewEdition =  () => ({
+const createNewEdition = () => ({
   type: 'CREATE_NEW_EDITION',
   isSending: true,
 });
@@ -16,12 +16,12 @@ const createNewEditionFailure = err => ({
   err,
 });
 
-const newEdition = (editionName) => 
- (dispatch) => {
-   dispatch(createNewEdition());
-   return api.createNewEdition(editionName)
-   .then(res => dispatch(createNewEditionSuccess(res)))
- }
+const newEdition = editionName =>
+  (dispatch) => {
+    dispatch(createNewEdition());
+    return api.createNewEdition(editionName)
+      .then(res => dispatch(createNewEditionSuccess(res)));
+  };
 
 export default {
   createNewEdition,

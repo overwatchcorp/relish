@@ -1,15 +1,11 @@
-import actionTypes from '../constants/actionTypes';
-import editionActions from './edition';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+import editionActions from './edition';
 
 // mock API method for creating editions
 jest.mock('../api', () => ({
-  createNewEdition: () => new Promise((resolve, reject) => {
-    return resolve()
-  }),
+  createNewEdition: () => new Promise(resolve => resolve()),
 }));
-import api from '../api';
 
 const mockStore = configureMockStore([thunk]);
 
@@ -25,9 +21,9 @@ it('createNewEditionSuccess() should create an action with type CREATE_NEW_EDITI
   const expectedAction = {
     type: 'CREATE_NEW_EDITION_SUCCESS',
     isSending: false,
-  }
+  };
   expect(editionActions.createNewEditionSuccess()).toEqual(expectedAction);
-})
+});
 
 it('createNewEditionFailure() should create an action with type CREATE_NEW_EDITION_FAILURE with err object', () => {
   const sampleErr = new Error('something went wrong');
@@ -35,7 +31,7 @@ it('createNewEditionFailure() should create an action with type CREATE_NEW_EDITI
     type: 'CREATE_NEW_EDITION_FAILURE',
     isSending: false,
     err: sampleErr,
-  }
+  };
   expect(editionActions.createNewEditionFailure(sampleErr)).toEqual(expectedAction);
 });
 
@@ -50,9 +46,9 @@ it('newEdition() should create CREATE_NEW_EDITION_SUCCESS after adding object to
   const store = mockStore({
     newEditionName: '',
   });
-  
+
   return store.dispatch(editionActions.newEdition(testEditionName))
-  .then(() => {
-    expect(store.getActions()).toEqual(expectedActions);
-  })
+    .then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
 });

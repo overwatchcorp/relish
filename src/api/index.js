@@ -10,7 +10,7 @@ const getPublicConfig = () => fetch(
       'Access-Control-Allow-Origin': '*',
       'Content-Type': 'multipart/form-data',
     },
-  }
+  },
 );
 
 const createNewEdition = editionName => database.ref(`/editions/${editionName}`).set({
