@@ -52,3 +52,14 @@ it('newEdition() should create CREATE_NEW_EDITION_SUCCESS after adding object to
       expect(store.getActions()).toEqual(expectedActions);
     });
 });
+
+it('editingEditionName(editionName) should create an action with type EDITING_EDITION_NAME', () => {
+  const testEditionName = 'test edition name';
+
+  const expectedAction = {
+    type: 'EDITING_EDITION_NAME',
+    editionName: testEditionName,
+  };
+  expect(editionActions.editingEditionName(testEditionName)).toEqual(expectedAction);
+});
+

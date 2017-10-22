@@ -23,9 +23,15 @@ const newEdition = editionName =>
       .then(res => dispatch(createNewEditionSuccess(res)));
   };
 
+const editingEditionName = editionName => ({
+  type: 'EDITING_EDITION_NAME',
+  editionName,
+});
+
 export default {
   createNewEdition,
   createNewEditionSuccess,
   createNewEditionFailure,
   newEdition,
+  editingEditionName,
 };
