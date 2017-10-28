@@ -7,6 +7,7 @@ describe('edition reducer', () => {
     });
     expect(state).toEqual({
       editionName: '',
+      pageFiles: [],
     });
   });
   it('should update editionName in store on EDITING_EDITION_NAME', () => {
@@ -17,12 +18,12 @@ describe('edition reducer', () => {
     });
     expect(state.editionName).toEqual(testEditionName);
   });
-  it('should add files to pageFiles in store on ADD_PAGE_FILES', () => {
-    const testFileList = [{ name: 'testfile.jpg', type: 'image/jpg' }];
+  it('should add files to pageFiles in store on ADD_PAGE_FILE', () => {
+    const testFile = { name: 'testfile.jpg', type: 'image/jpg' };
     const state = edition(undefined, {
-      type: 'ADD_PAGE_FILES',
-      pageFiles: testFileList,
+      type: 'ADD_PAGE_FILE',
+      file: testFile,
     });
-    expect(state.pageFiles).toEqual(testFileList);
+    expect(state.pageFiles).toEqual([testFile]);
   });
 });

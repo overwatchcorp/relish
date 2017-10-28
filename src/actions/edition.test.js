@@ -63,3 +63,16 @@ it('editingEditionName(editionName) should create an action with type EDITING_ED
   expect(editionActions.editingEditionName(testEditionName)).toEqual(expectedAction);
 });
 
+it('addFile() with page fileCategory and image file should create action with type ADD_PAGE_FILE', () => {
+  const testFile = {
+    lastModified: 1506740531000,
+    name: 'Messages Image(3105554528).png',
+    size: 265953,
+    type: 'image/png',
+  };
+  const expectedAction = {
+    type: 'ADD_PAGE_FILE',
+    file: testFile,
+  };
+  expect(editionActions.addFile({ fileCategory: 'page', file: testFile })).toEqual(expectedAction);
+});

@@ -28,10 +28,25 @@ const editingEditionName = editionName => ({
   editionName,
 });
 
+const addFile = ({ fileCategory, file }) => {
+  switch (fileCategory) {
+    case ('page'): {
+      return ({
+        type: 'ADD_PAGE_FILE',
+        file
+      });
+    }
+    default: {
+      return false;
+    }
+  }
+};
+
 export default {
   createNewEdition,
   createNewEditionSuccess,
   createNewEditionFailure,
   newEdition,
   editingEditionName,
+  addFile,
 };
