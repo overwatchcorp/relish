@@ -33,7 +33,13 @@ const addFile = ({ fileCategory, file }) => {
     case ('page'): {
       return ({
         type: 'ADD_PAGE_FILE',
-        file
+        file,
+      });
+    }
+    case ('work'): {
+      return ({
+        type: 'ADD_WORK_FILE',
+        file,
       });
     }
     default: {

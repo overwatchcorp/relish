@@ -76,3 +76,17 @@ it('addFile() with page fileCategory and image file should create action with ty
   };
   expect(editionActions.addFile({ fileCategory: 'page', file: testFile })).toEqual(expectedAction);
 });
+
+it('addFile() with work fileCategory and image file should create action with type ADD_WORK_FILE', () => {
+  const testFile = {
+    lastModified: 1506740531000,
+    name: 'Messages Image(3105554528).png',
+    size: 265953,
+    type: 'image/png',
+  };
+  const expectedAction = {
+    type: 'ADD_WORK_FILE',
+    file: testFile,
+  };
+  expect(editionActions.addFile({ fileCategory: 'work', file: testFile })).toEqual(expectedAction);
+});

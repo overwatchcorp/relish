@@ -22,7 +22,7 @@ const NewEdition = props => (
     </form>
     <form>
       <div>
-        <label htmlFor="asset-upload">
+        <label htmlFor="works-upload">
           upload individual work images
           <input id="works-upload" type="file" onChange={props.handleWorkChange} multiple />
         </label>
@@ -44,7 +44,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   handleNameChange: e => dispatch(editionActions.editingEditionName(e.target.value)),
   handlePageChange: e => [...e.target.files].forEach(file => dispatch(editionActions.addFile({ fileCategory: 'page', file }))),
-  handleWorkChange: e => console.log(e.target.files),
+  handleWorkChange: e => [...e.target.files].forEach(file => dispatch(editionActions.addFile({ fileCategory: 'work', file }))),
 });
 
 const FuncNewEdition = connect(

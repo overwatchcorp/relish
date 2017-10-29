@@ -2,6 +2,7 @@
 const edition = (state = {
   editionName: '',
   pageFiles: [],
+  workFiles: [],
 }, action) => {
   switch (action.type) {
     case 'EDITING_EDITION_NAME': {
@@ -14,6 +15,13 @@ const edition = (state = {
       const newPageFileList = [action.file, ...state.pageFiles];
       const newState = Object.assign({}, state, {
         pageFiles: newPageFileList,
+      });
+      return newState;
+    }
+    case 'ADD_WORK_FILE': {
+      const newWorkFileList = [action.file, ...state.workFiles];
+      const newState = Object.assign({}, state, {
+        workFiles: newWorkFileList,
       });
       return newState;
     }

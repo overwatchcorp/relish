@@ -8,6 +8,7 @@ describe('edition reducer', () => {
     expect(state).toEqual({
       editionName: '',
       pageFiles: [],
+      workFiles: [],
     });
   });
   it('should update editionName in store on EDITING_EDITION_NAME', () => {
