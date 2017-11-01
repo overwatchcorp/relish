@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import editionActions from '../actions/edition';
+import Tagger from './Tagger';
 
 const NewEdition = props => (
   <div>
@@ -28,6 +29,11 @@ const NewEdition = props => (
         </label>
       </div>
     </form>
+    {/* if user has selected both page and work files, show tagger */}
+    { (props.pageFiles.length > 0 && props.pageFiles.length > 0) ?
+      <Tagger />
+      : <small>Please select image assets</small>
+    }
   </div>
 );
 
@@ -38,13 +44,30 @@ NewEdition.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  editionName: state.editionName,
+  editionName: state.edition.editionName,
+  pageFiles: state.edition.pageFiles,
+  workFiles: state.edition.workFiles,
 });
+
+const readImage = file =>
+  new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = e => resolve(e.target.result);
+    reader.readAsDataURL(file);
+  });
 
 const mapDispatchToProps = dispatch => ({
   handleNameChange: e => dispatch(editionActions.editingEditionName(e.target.value)),
-  handlePageChange: e => [...e.target.files].forEach(file => dispatch(editionActions.addFile({ fileCategory: 'page', file }))),
-  handleWorkChange: e => [...e.target.files].forEach(file => dispatch(editionActions.addFile({ fileCategory: 'work', file }))),
+  handlePageChange: e => [...e.target.files].forEach(file =>
+    readImage(file).then((i) => {
+      const readFile = Object.assign(file, { src: i });
+      dispatch(editionActions.addFile({ fileCategory: 'page', file: readFile }));
+    })),
+  handleWorkChange: e => [...e.target.files].forEach(file =>
+    readImage(file).then((i) => {
+      const readFile = Object.assign(file, { src: i });
+      dispatch(editionActions.addFile({ fileCategory: 'work', file: readFile }));
+    })),
 });
 
 const FuncNewEdition = connect(

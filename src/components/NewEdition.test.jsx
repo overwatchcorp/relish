@@ -19,6 +19,8 @@ describe('<NewEdition />', () => {
     handleNameChange: () => {},
     handlePageChange: () => {},
     handleWorkChange: () => {},
+    pageFiles: [],
+    workFiles: [],
   };
   it('should have an input to enter edition name', () => {
     const elem = shallow(<NewEdition store={store} {...mockProps} />);
@@ -32,4 +34,4 @@ describe('<NewEdition />', () => {
     const elem = shallow(<NewEdition store={store} {...mockProps} />);
     expect(elem.find('input#works-upload[type="file"]').length).toEqual(1);
   });
-})
+});

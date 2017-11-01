@@ -5,5 +5,6 @@ module.exports = {
         "describe": true,
         "it": true,
         "jest": true,
+        "FileReader": true,
     },
 };
